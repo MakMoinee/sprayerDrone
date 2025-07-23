@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,7 +37,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardMain"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/cardTop"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="-20dp"
@@ -51,7 +48,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@android:color/white"
                 android:padding="15dp">
 
@@ -62,9 +59,9 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/sen_bold"
-                    android:text="LOGIN"
+                    android:text="CREATE ACCOUNT"
                     android:textColor="@color/black"
-                    android:textSize="25sp" />
+                    android:textSize="23sp" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -114,43 +111,112 @@
                         android:textColor="@color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/btnLogin"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layoutPassword"
                     android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:hint="Confirm Password"
+                    android:textColorHint="@color/black"
+                    app:passwordToggleEnabled="true"
+                    app:startIconDrawable="@drawable/ic_pass">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sen_regular"
+                        android:inputType="textPassword"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutConfirmPassword"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/white"
+                    android:hint="Enter First Name"
+                    android:textColorHint="@color/black"
+                    app:startIconDrawable="@drawable/ic_account">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sen_regular"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutMiddleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutFirstName"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:hint="Enter Middle Name"
+                    android:textColorHint="@color/black"
+                    app:startIconDrawable="@drawable/ic_account">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editMiddleName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sen_regular"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutMiddleName"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:hint="Enter Last Name"
+                    android:textColorHint="@color/black"
+                    app:startIconDrawable="@drawable/ic_account">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sen_regular"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnCreateAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/sen_bold"
-                    android:text="Login"
+                    android:text="Create Account"
                     android:textAllCaps="true"
                     android:textSize="15sp"
                     android:theme="@style/CustomBlackStyle" />
-
-                <TextView
-                    android:id="@+id/lblCreateAccount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/btnLogin"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/sen_bold"
-                    android:text="No Account? Create Your Account Now"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/txtVersion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cardMain"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/sen_regular"
-            android:text="v1.0.0"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
     </RelativeLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
