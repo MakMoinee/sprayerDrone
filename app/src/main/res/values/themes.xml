@@ -20,4 +20,16 @@
     <style name="Theme.SprayerDrone.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SprayerDrone.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="CustomStyleRed" parent="Theme.Design.Light">
+        <item name="colorPrimary">#FF0F00</item>
+        <item name="colorAccent">#FF0F00</item>
+    </style>
+
+    <style name="CustomStyleBlue" parent="Theme.Design.Light">
+        <item name="colorPrimary">#03A9F4</item>
+        <item name="colorAccent">#03A9F4</item>
+    </style>
+
 </resources>
