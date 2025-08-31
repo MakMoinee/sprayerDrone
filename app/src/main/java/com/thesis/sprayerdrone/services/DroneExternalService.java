@@ -11,7 +11,38 @@ public class DroneExternalService extends LocalVolleyRequest {
         super(mContext);
     }
 
-    public void pingDrone(LocalVolleyRequestBody body, LocalVolleyRequestListener listener) {
+    public void pingDrone(String ip, LocalVolleyRequestListener listener) {
+        LocalVolleyRequestBody body = new LocalVolleyRequestBody.LocalVolleyRequestBodyBuilder()
+                .setUrl(String.format("http://%s/ping", ip))
+                .build();
+        this.sendTextPlainRequest(body, listener);
+    }
+
+    public void arm(String ip, LocalVolleyRequestListener listener) {
+        LocalVolleyRequestBody body = new LocalVolleyRequestBody.LocalVolleyRequestBodyBuilder()
+                .setUrl(String.format("http://%s/arm", ip))
+                .build();
+        this.sendTextPlainRequest(body, listener);
+    }
+
+    public void disArm(String ip, LocalVolleyRequestListener listener) {
+        LocalVolleyRequestBody body = new LocalVolleyRequestBody.LocalVolleyRequestBodyBuilder()
+                .setUrl(String.format("http://%s/disarm", ip))
+                .build();
+        this.sendTextPlainRequest(body, listener);
+    }
+
+    public void pumpOn(String ip, LocalVolleyRequestListener listener) {
+        LocalVolleyRequestBody body = new LocalVolleyRequestBody.LocalVolleyRequestBodyBuilder()
+                .setUrl(String.format("http://%s/pump_on", ip))
+                .build();
+        this.sendTextPlainRequest(body, listener);
+    }
+
+    public void pumpOff(String ip, LocalVolleyRequestListener listener) {
+        LocalVolleyRequestBody body = new LocalVolleyRequestBody.LocalVolleyRequestBodyBuilder()
+                .setUrl(String.format("http://%s/pump_off", ip))
+                .build();
         this.sendTextPlainRequest(body, listener);
     }
 }
