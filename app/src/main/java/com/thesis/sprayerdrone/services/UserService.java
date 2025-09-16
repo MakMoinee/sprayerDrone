@@ -10,6 +10,7 @@ import android.util.Log;
 import com.github.MakMoinee.library.common.MapForm;
 import com.github.MakMoinee.library.interfaces.DefaultBaseListener;
 import com.github.MakMoinee.library.services.HashPass;
+import com.thesis.sprayerdrone.models.Drones;
 import com.thesis.sprayerdrone.models.Users;
 import com.thesis.sprayerdrone.repository.MyLocalSQL;
 
@@ -156,5 +157,46 @@ public class UserService {
             db.close();
         }
 
+    }
+
+    public void deleteUserByID(int id, DefaultBaseListener listener) {
+        if (id != 0) {
+            SQLiteDatabase db = localSQL.getWritableDatabase();
+            try {
+                int affectedRows = db.delete(TABLE_USER, "id = ?", new String[]{String.valueOf(id)});
+                if (affectedRows > 0) {
+                    listener.onSuccess("User successfully deleted");
+                } else {
+                    listener.onError(new Error("Failed to delete user or user not found"));
+                }
+            } catch (Exception e) {
+                Log.e("deleteUser_error", e.getLocalizedMessage());
+                listener.onError(new Error(e.getMessage()));
+            } finally {
+                db.close();
+            }
+        } else {
+            listener.onError(new Error("User object is null"));
+        }
+    }
+    public void deleteUser(Users users, DefaultBaseListener listener) {
+        if (users != null) {
+            SQLiteDatabase db = localSQL.getWritableDatabase();
+            try {
+                int affectedRows = db.delete(TABLE_USER, "id = ?", new String[]{String.valueOf(users.getId())});
+                if (affectedRows > 0) {
+                    listener.onSuccess("User successfully deleted");
+                } else {
+                    listener.onError(new Error("Failed to delete user or user not found"));
+                }
+            } catch (Exception e) {
+                Log.e("deleteUser_error", e.getLocalizedMessage());
+                listener.onError(new Error(e.getMessage()));
+            } finally {
+                db.close();
+            }
+        } else {
+            listener.onError(new Error("User object is null"));
+        }
     }
 }

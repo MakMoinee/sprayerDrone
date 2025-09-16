@@ -4,4 +4,5 @@ public interface LogoutListener {
     void onLogout();
     void onCancelLogout();
     void openDrones();
+    void openSettings();
 }

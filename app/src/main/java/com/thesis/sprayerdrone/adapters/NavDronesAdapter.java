@@ -38,6 +38,8 @@ public class NavDronesAdapter extends RecyclerView.Adapter<NavDronesAdapter.View
     public void onBindViewHolder(@NonNull NavDronesAdapter.ViewHolder holder, int position) {
         Drones drones = dronesList.get(position);
         holder.txtDroneName.setText(String.format("%s", drones.getDeviceName()));
+        holder.btnDeleteDrone.setOnClickListener(v -> listener.onDeleteListener(drones));
+        holder.itemView.setOnClickListener(v -> listener.onClickListener(holder.getAdapterPosition()));
     }
 
     @Override

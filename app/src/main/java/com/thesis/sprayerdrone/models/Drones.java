@@ -11,6 +11,7 @@ public class Drones {
     private String deviceName;
     private String deviceIP;
     private String status;
+    private String registeredDate;
 
     public Drones(DroneBuilder builder) {
         this.id = builder.id;
@@ -18,6 +19,7 @@ public class Drones {
         this.deviceName = builder.deviceName;
         this.deviceIP = builder.deviceIP;
         this.status = builder.status;
+        this.registeredDate = builder.registeredDate;
     }
 
     public static class DroneBuilder {
@@ -26,6 +28,12 @@ public class Drones {
         private String deviceName;
         private String deviceIP;
         private String status;
+        private String registeredDate;
+
+        public DroneBuilder setRegisteredDate(String registeredDate) {
+            this.registeredDate = registeredDate;
+            return this;
+        }
 
         public DroneBuilder setId(int id) {
             this.id = id;

@@ -71,6 +71,17 @@
                             android:theme="@style/CustomBlackStyle" />
                     </LinearLayout>
 
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/linear"
+                        android:layout_marginTop="10dp"
+                        android:padding="5dp"
+                        android:scrollbars="vertical" />
+
+
                     <ImageButton
                         android:id="@+id/btnAddDrones"
                         android:layout_width="50dp"
@@ -81,15 +92,6 @@
                         android:background="@color/black"
                         android:src="@drawable/ic_add"
                         android:theme="@style/CustomBlackStyle" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/linear"
-                        android:layout_marginTop="10dp"
-                        android:padding="15dp"
-                        android:scrollbars="vertical" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>

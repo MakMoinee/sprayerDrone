@@ -17,6 +17,12 @@
         android:label="Drones"
         tools:layout="@layout/fragment_drones" />
 
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.thesis.sprayerdrone.ui.SettingsFragment"
+        android:label="Settings" />
+
     <fragment
         android:id="@+id/nav_logout"
         android:name="com.thesis.sprayerdrone.ui.LogoutFragment"

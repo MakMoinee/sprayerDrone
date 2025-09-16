@@ -1,6 +1,8 @@
 package com.thesis.sprayerdrone.ui.drones;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,11 +20,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.github.MakMoinee.library.interfaces.DefaultBaseListener;
 import com.github.MakMoinee.library.interfaces.LocalVolleyRequestListener;
 import com.github.MakMoinee.library.preference.LoginPref;
+import com.github.MakMoinee.library.services.Utils;
+import com.google.gson.Gson;
+import com.thesis.sprayerdrone.DroneActivity;
 import com.thesis.sprayerdrone.adapters.NavDronesAdapter;
 import com.thesis.sprayerdrone.common.MyUtils;
 import com.thesis.sprayerdrone.databinding.DialogAddDroneBinding;
 import com.thesis.sprayerdrone.databinding.FragmentDronesBinding;
 import com.thesis.sprayerdrone.interfaces.DronesListener;
+import com.thesis.sprayerdrone.interfaces.LogoutListener;
 import com.thesis.sprayerdrone.interfaces.NetworkListener;
 import com.thesis.sprayerdrone.models.Drones;
 import com.thesis.sprayerdrone.services.DroneExternalService;
@@ -41,11 +47,12 @@ public class DroneFragment extends Fragment {
     int userID = 0;
     AlertDialog addDroneDialog;
     DialogAddDroneBinding dialogAddDroneBinding;
+    LogoutListener logoutListener;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentDronesBinding.inflate(LayoutInflater.from(requireContext()), container, false);
+        binding = FragmentDronesBinding.inflate(LayoutInflater.from(requireContext()), null, false);
         dronesService = new DronesService(requireContext());
         userID = new LoginPref(requireContext()).getIntItem("id");
         externalService = new DroneExternalService(requireContext());
@@ -60,10 +67,12 @@ public class DroneFragment extends Fragment {
         dronesService.getAllDronesByUserID(userID, new DefaultBaseListener() {
             @Override
             public <T> void onSuccess(T any) {
+                binding.myRefresher.setRefreshing(false);
                 if (any instanceof List<?>) {
                     List<?> tmpList = (List<?>) any;
                     List<Drones> dList = (List<Drones>) tmpList;
                     if (dList != null) {
+                        dronesList = dList;
                         adapter = new NavDronesAdapter(requireContext(), dronesList, new DronesListener() {
                             @Override
                             public void onClickListener() {
@@ -71,15 +80,26 @@ public class DroneFragment extends Fragment {
                             }
 
                             @Override
-                            public void onDeleteListener(Drones drones) {
+                            public void onDeleteListener(Drones sDrone) {
                                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(requireContext());
-                                DialogInterface.OnClickListener dListener = (dialog, which) -> {
+                                DialogInterface.OnClickListener dListener = (d, which) -> {
                                     switch (which) {
                                         case DialogInterface.BUTTON_NEGATIVE:
-//                                                    TODO: implement delete
+                                            dronesService.deleteDrone(sDrone, new DefaultBaseListener() {
+                                                @Override
+                                                public <T> void onSuccess(T any) {
+                                                    Toast.makeText(requireContext(), "Successfully Deleted Drone", Toast.LENGTH_SHORT).show();
+                                                    loadAllDrones();
+                                                }
+
+                                                @Override
+                                                public void onError(Error error) {
+                                                    Toast.makeText(requireContext(), "Failed To Delete Drone, Please Try Again Later", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                             break;
                                         default:
-                                            dialog.dismiss();
+                                            d.dismiss();
                                             break;
                                     }
                                 };
@@ -88,6 +108,14 @@ public class DroneFragment extends Fragment {
                                         .setNegativeButton("Yes", dListener)
                                         .setCancelable(false)
                                         .show();
+                            }
+
+                            @Override
+                            public void onClickListener(int position) {
+                                Drones focusedDrone = dronesList.get(position);
+                                Intent intent = new Intent(requireContext(), DroneActivity.class);
+                                intent.putExtra("drones", new Gson().toJson(focusedDrone));
+                                requireContext().startActivity(intent);
                             }
                         });
                         binding.recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -99,12 +127,16 @@ public class DroneFragment extends Fragment {
             @Override
             public void onError(Error error) {
                 Log.e("empty_data", error.getLocalizedMessage());
+
             }
         });
     }
 
     private void setListeners() {
-        binding.myRefresher.setOnRefreshListener(() -> loadAllDrones());
+        binding.myRefresher.setOnRefreshListener(() -> {
+            loadAllDrones();
+            binding.myRefresher.setRefreshing(false);
+        });
         binding.btnSearch.setOnClickListener(v -> {
             String search = binding.editSearch.getText().toString().trim();
             if (search.equals("")) {
@@ -157,17 +189,34 @@ public class DroneFragment extends Fragment {
                 });
             }
         });
-        dialogAddDroneBinding.btnSaveDrone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String ip = dialogAddDroneBinding.editDroneIP.getText().toString().trim();
-                String droneName = dialogAddDroneBinding.editDroneName.getText().toString().trim();
+        dialogAddDroneBinding.btnSaveDrone.setOnClickListener(v -> {
+            String ip = dialogAddDroneBinding.editDroneIP.getText().toString().trim();
+            String droneName = dialogAddDroneBinding.editDroneName.getText().toString().trim();
 
-                if (ip.equals("") || droneName.equals("")) {
-                    Toast.makeText(requireContext(), "Please Don't Leave Empty Fields", Toast.LENGTH_SHORT).show();
-                } else {
+            if (ip.equals("") || droneName.equals("")) {
+                Toast.makeText(requireContext(), "Please Don't Leave Empty Fields", Toast.LENGTH_SHORT).show();
+            } else {
+                Drones newDrone = new Drones.DroneBuilder()
+                        .setUserID(userID)
+                        .setDeviceName(droneName)
+                        .setDeviceIP(ip)
+                        .setStatus("active")
+                        .setRegisteredDate(Utils.getCurrentDate("yyyy-MM-dd"))
+                        .build();
 
-                }
+                dronesService.insertDrone(newDrone, new DefaultBaseListener() {
+                    @Override
+                    public <T> void onSuccess(T any) {
+                        Toast.makeText(requireContext(), "Successfully Added Drone", Toast.LENGTH_SHORT).show();
+                        addDroneDialog.dismiss();
+                        loadAllDrones();
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+                        Toast.makeText(requireContext(), "Failed to add drone, please try again later", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -175,5 +224,14 @@ public class DroneFragment extends Fragment {
             addDroneDialog.dismiss();
             addDroneDialog = null;
         });
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof LogoutListener) {
+            logoutListener = (LogoutListener) context;
+        }
     }
 }
