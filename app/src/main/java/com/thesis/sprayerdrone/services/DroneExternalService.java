@@ -7,6 +7,8 @@ import com.github.MakMoinee.library.models.LocalVolleyRequestBody;
 import com.github.MakMoinee.library.services.LocalVolleyRequest;
 
 public class DroneExternalService extends LocalVolleyRequest {
+    private final String controlString = "http://%s/control?pitch=%.0f&roll=%.0f&throttle=%.0f&yaw=%.0f";
+
     public DroneExternalService(Context mContext) {
         super(mContext);
     }
@@ -42,6 +44,14 @@ public class DroneExternalService extends LocalVolleyRequest {
     public void pumpOff(String ip, LocalVolleyRequestListener listener) {
         LocalVolleyRequestBody body = new LocalVolleyRequestBody.LocalVolleyRequestBodyBuilder()
                 .setUrl(String.format("http://%s/pump_off", ip))
+                .build();
+        this.sendTextPlainRequest(body, listener);
+    }
+
+    public void sendCommand(String ip, float pitch, float roll, float throttle, float yaw, LocalVolleyRequestListener listener) {
+        String formattedUrl = String.format(controlString, ip, pitch, roll, throttle, yaw);
+        LocalVolleyRequestBody body = new LocalVolleyRequestBody.LocalVolleyRequestBodyBuilder()
+                .setUrl(formattedUrl)
                 .build();
         this.sendTextPlainRequest(body, listener);
     }

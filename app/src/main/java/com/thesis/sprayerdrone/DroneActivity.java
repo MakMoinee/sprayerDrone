@@ -22,6 +22,10 @@ public class DroneActivity extends AppCompatActivity {
     DroneExternalService externalService;
     Drones selectedDrones;
     boolean isPumpOn = true;
+    private float pitch = 1500;   // Default values for pitch, roll, throttle, and yaw
+    private float roll = 1500;
+    private float throttle = 1500;
+    private float yaw = 1500;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,5 +132,35 @@ public class DroneActivity extends AppCompatActivity {
                 }
             }
         }));
+
+        binding.btnLeft.setJoystickListener((x, y) -> {
+            pitch = 1500 + x * 500;  // Map X to pitch (left-right)
+            roll = 1500 + y * 500;   // Map Y to roll (up-down)
+            sendControlCommand();
+        });
+
+        binding.btnRight.setJoystickListener((x, y) -> {
+            throttle = 1500 + x * 500;     // Map X to yaw (left-right)
+            yaw = 1500 + y * 500;  // Map Y to throttle (up-down)
+            sendControlCommand();
+        });
+    }
+
+    private void sendControlCommand() {
+        MyUtils.checkInternet(DroneActivity.this, new NetworkListener() {
+            @Override
+            public <T> void onSuccess(T any) {
+                externalService.sendCommand(selectedDrones.getDeviceIP(), pitch, roll, throttle, yaw, new LocalVolleyRequestListener() {
+                    @Override
+                    public void onSuccessString(String response) {
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+
+                    }
+                });
+            }
+        });
     }
 }
