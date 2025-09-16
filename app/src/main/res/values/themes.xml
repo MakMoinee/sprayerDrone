@@ -15,6 +15,12 @@
     <style name="Theme.SprayerDrone.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">#FF0F00</item>
+        <item name="colorAccent">#FFFFFF</item>
+
+        <item name="colorSecondary">#FF0F00</item>
+        <item name="colorSecondaryVariant">#FF0F00</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
     </style>
 
     <style name="Theme.SprayerDrone.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

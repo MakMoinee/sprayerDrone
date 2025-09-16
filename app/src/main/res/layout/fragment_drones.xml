@@ -14,36 +14,11 @@
             android:layout_height="match_parent"
             android:background="#F5F5F5">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardTop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="10dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="110dp"
-                    android:background="@color/red">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/sen_bold"
-                        android:text="Your Drones"
-                        android:textColor="@android:color/white"
-                        android:textSize="30sp" />
-
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/cardTop"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="-20dp"
                 android:layout_marginRight="10dp"

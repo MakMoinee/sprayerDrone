@@ -18,7 +18,8 @@ public class Users {
         this.firstName = builder.firstName;
         this.middleName = builder.middleName;
         this.lastName = builder.lastName;
-        this.username = builder.password;
+        this.username = builder.username;
+        this.password = builder.password;
     }
 
     public static class UserBuilder {

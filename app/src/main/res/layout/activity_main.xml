@@ -123,6 +123,7 @@
                     android:fontFamily="@font/sen_bold"
                     android:text="Login"
                     android:textAllCaps="true"
+                    android:textColor="@android:color/white"
                     android:textSize="15sp"
                     android:theme="@style/CustomBlackStyle" />
 
@@ -133,6 +134,7 @@
                     android:layout_below="@+id/btnLogin"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
+                    android:clickable="true"
                     android:fontFamily="@font/sen_bold"
                     android:text="No Account? Create Your Account Now"
                     android:textColor="@color/black"

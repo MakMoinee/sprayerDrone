@@ -2,6 +2,8 @@ package com.thesis.sprayerdrone;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -28,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
         userService = new UserService(MainActivity.this);
+        int id = new LoginPref(MainActivity.this).getIntItem("id");
+        if (id != 0) {
+            startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+            finish();
+        }
         setListeners();
     }
 
@@ -40,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Users users = new Users.UserBuilder()
                         .setUsername(username)
-                        .setPassword(hashPass.makeHashPassword(password))
+                        .setPassword(password)
                         .build();
                 userService.login(users, new DefaultBaseListener() {
                     @Override
@@ -58,10 +65,20 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Error error) {
+                        if (error != null && error.getLocalizedMessage() != null) {
+                            Log.e("error_login", error.getLocalizedMessage());
+                        }
                         Toast.makeText(MainActivity.this, "Wrong Username or Password", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
+        });
+
+        binding.lblCreateAccount.setOnClickListener(v -> {
+            binding.editUsername.setText("");
+            binding.editPassword.setText("");
+            Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
+            startActivity(intent);
         });
     }
 }
