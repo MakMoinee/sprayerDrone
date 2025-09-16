@@ -16,11 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.MakMoinee.library.interfaces.DefaultBaseListener;
+import com.github.MakMoinee.library.interfaces.LocalVolleyRequestListener;
 import com.github.MakMoinee.library.preference.LoginPref;
 import com.thesis.sprayerdrone.adapters.NavDronesAdapter;
+import com.thesis.sprayerdrone.common.MyUtils;
+import com.thesis.sprayerdrone.databinding.DialogAddDroneBinding;
 import com.thesis.sprayerdrone.databinding.FragmentDronesBinding;
 import com.thesis.sprayerdrone.interfaces.DronesListener;
+import com.thesis.sprayerdrone.interfaces.NetworkListener;
 import com.thesis.sprayerdrone.models.Drones;
+import com.thesis.sprayerdrone.services.DroneExternalService;
 import com.thesis.sprayerdrone.services.DronesService;
 
 import java.util.ArrayList;
@@ -32,7 +37,10 @@ public class DroneFragment extends Fragment {
     NavDronesAdapter adapter;
     List<Drones> dronesList = new ArrayList<>();
     DronesService dronesService;
+    DroneExternalService externalService;
     int userID = 0;
+    AlertDialog addDroneDialog;
+    DialogAddDroneBinding dialogAddDroneBinding;
 
     @Nullable
     @Override
@@ -40,6 +48,7 @@ public class DroneFragment extends Fragment {
         binding = FragmentDronesBinding.inflate(LayoutInflater.from(requireContext()), container, false);
         dronesService = new DronesService(requireContext());
         userID = new LoginPref(requireContext()).getIntItem("id");
+        externalService = new DroneExternalService(requireContext());
         setListeners();
         loadAllDrones();
         return binding.getRoot();
@@ -95,12 +104,7 @@ public class DroneFragment extends Fragment {
     }
 
     private void setListeners() {
-        binding.myRefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadAllDrones();
-            }
-        });
+        binding.myRefresher.setOnRefreshListener(() -> loadAllDrones());
         binding.btnSearch.setOnClickListener(v -> {
             String search = binding.editSearch.getText().toString().trim();
             if (search.equals("")) {
@@ -116,6 +120,60 @@ public class DroneFragment extends Fragment {
                     }
                 }
             }
+        });
+
+        binding.btnAddDrones.setOnClickListener(v -> MyUtils.checkInternet(requireContext(), new NetworkListener() {
+            @Override
+            public <T> void onSuccess(T any) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(requireContext());
+                dialogAddDroneBinding = DialogAddDroneBinding.inflate(LayoutInflater.from(requireContext()), null, false);
+                mBuilder.setView(dialogAddDroneBinding.getRoot());
+                setDialogAddDroneListeners();
+                addDroneDialog = mBuilder.create();
+                addDroneDialog.setCancelable(false);
+                addDroneDialog.show();
+            }
+        }));
+    }
+
+    private void setDialogAddDroneListeners() {
+        dialogAddDroneBinding.btnPing.setOnClickListener(v -> {
+
+            String ip = dialogAddDroneBinding.editDroneIP.getText().toString().trim();
+            String droneName = dialogAddDroneBinding.editDroneName.getText().toString().trim();
+
+            if (!ip.equals("")) {
+                externalService.pingDrone(ip, new LocalVolleyRequestListener() {
+                    @Override
+                    public void onSuccessString(String response) {
+                        Toast.makeText(requireContext(), "Successfully Pinged Drone, you can proceed to saving the drone", Toast.LENGTH_SHORT).show();
+                        dialogAddDroneBinding.btnSaveDrone.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+                        Toast.makeText(requireContext(), "Can't connect to the specified ip drone, please check network and try again later", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        dialogAddDroneBinding.btnSaveDrone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ip = dialogAddDroneBinding.editDroneIP.getText().toString().trim();
+                String droneName = dialogAddDroneBinding.editDroneName.getText().toString().trim();
+
+                if (ip.equals("") || droneName.equals("")) {
+                    Toast.makeText(requireContext(), "Please Don't Leave Empty Fields", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+            }
+        });
+
+        dialogAddDroneBinding.btnCancel.setOnClickListener(v -> {
+            addDroneDialog.dismiss();
+            addDroneDialog = null;
         });
     }
 }
