@@ -73,7 +73,8 @@
                     android:background="@color/white"
                     android:hint="Enter Username"
                     android:textColorHint="@color/black"
-                    app:startIconDrawable="@drawable/ic_account">
+                    app:startIconDrawable="@drawable/ic_account"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editUsername"
@@ -97,7 +98,9 @@
                     android:hint="Enter Password"
                     android:textColorHint="@color/black"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_pass">
+                    app:passwordToggleTint="@color/black"
+                    app:startIconDrawable="@drawable/ic_pass"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editPassword"
@@ -121,7 +124,9 @@
                     android:hint="Confirm Password"
                     android:textColorHint="@color/black"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_pass">
+                    app:passwordToggleTint="@color/black"
+                    app:startIconDrawable="@drawable/ic_pass"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editConfirmPassword"
@@ -144,7 +149,8 @@
                     android:background="@color/white"
                     android:hint="Enter First Name"
                     android:textColorHint="@color/black"
-                    app:startIconDrawable="@drawable/ic_account">
+                    app:startIconDrawable="@drawable/ic_account"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editFirstName"
@@ -167,7 +173,8 @@
                     android:background="@color/white"
                     android:hint="Enter Middle Name"
                     android:textColorHint="@color/black"
-                    app:startIconDrawable="@drawable/ic_account">
+                    app:startIconDrawable="@drawable/ic_account"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editMiddleName"
@@ -190,7 +197,8 @@
                     android:background="@color/white"
                     android:hint="Enter Last Name"
                     android:textColorHint="@color/black"
-                    app:startIconDrawable="@drawable/ic_account">
+                    app:startIconDrawable="@drawable/ic_account"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editLastName"

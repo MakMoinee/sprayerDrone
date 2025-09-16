@@ -76,7 +76,8 @@
                     android:background="@color/white"
                     android:hint="Enter Username"
                     android:textColorHint="@color/black"
-                    app:startIconDrawable="@drawable/ic_account">
+                    app:startIconDrawable="@drawable/ic_account"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editUsername"
@@ -100,7 +101,9 @@
                     android:hint="Enter Password"
                     android:textColorHint="@color/black"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_pass">
+                    app:passwordToggleTint="@color/black"
+                    app:startIconDrawable="@drawable/ic_pass"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editPassword"

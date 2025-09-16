@@ -73,7 +73,8 @@
                     android:background="@color/white"
                     android:hint="Enter IP Address"
                     android:textColorHint="@color/black"
-                    app:startIconDrawable="@drawable/ic_ip">
+                    app:startIconDrawable="@drawable/ic_ip"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editDroneIP"
@@ -96,7 +97,8 @@
                     android:background="@color/white"
                     android:hint="Enter Drone Name"
                     android:textColorHint="@color/black"
-                    app:startIconDrawable="@drawable/ic_drone">
+                    app:startIconDrawable="@drawable/ic_drone"
+                    app:startIconTint="@color/black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editDroneName"

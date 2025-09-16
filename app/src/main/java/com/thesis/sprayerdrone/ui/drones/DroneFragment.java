@@ -47,7 +47,6 @@ public class DroneFragment extends Fragment {
     int userID = 0;
     AlertDialog addDroneDialog;
     DialogAddDroneBinding dialogAddDroneBinding;
-    LogoutListener logoutListener;
 
     @Nullable
     @Override
@@ -226,12 +225,5 @@ public class DroneFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
 
-        if (context instanceof LogoutListener) {
-            logoutListener = (LogoutListener) context;
-        }
-    }
 }
