@@ -76,4 +76,9 @@ public class DashboardActivity extends AppCompatActivity implements LogoutListen
     public void onCancelLogout() {
         navController.navigate(R.id.nav_home);
     }
+
+    @Override
+    public void openDrones() {
+        navController.navigate(R.id.nav_drones);
+    }
 }
