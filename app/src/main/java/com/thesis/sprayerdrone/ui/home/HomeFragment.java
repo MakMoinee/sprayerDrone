@@ -15,7 +15,6 @@ import com.thesis.sprayerdrone.interfaces.LogoutListener;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    LogoutListener logoutListener;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -28,7 +27,6 @@ public class HomeFragment extends Fragment {
 
     private void setListeners() {
 
-        binding.cardDrones.setOnClickListener(v -> logoutListener.openDrones());
     }
 
     @Override
@@ -37,12 +35,4 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        if (context instanceof LogoutListener) {
-            logoutListener = (LogoutListener) context;
-        }
-    }
 }

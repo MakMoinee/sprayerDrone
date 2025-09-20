@@ -32,64 +32,6 @@
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lblTitle"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                app:cardBackgroundColor="#009688"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="10dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:src="@drawable/ic_settings" />
-
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardDrones"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:clickable="true"
-                app:cardBackgroundColor="#CDDC39"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="10dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:src="@drawable/ic_drones" />
-
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
 
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
