@@ -257,6 +257,7 @@ public class DroneActivity extends AppCompatActivity {
                 Toast.makeText(this, "Failed to send command", Toast.LENGTH_SHORT).show();
             }
         } else {
+            Log.e("bt_not_connected", "true");
             Toast.makeText(this, "Not connected to robot car", Toast.LENGTH_SHORT).show();
         }
     }

@@ -1,6 +1,7 @@
 package com.thesis.sprayerdrone.services;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.github.MakMoinee.library.interfaces.LocalVolleyRequestListener;
 import com.github.MakMoinee.library.models.LocalVolleyRequestBody;
@@ -49,6 +50,7 @@ public class DroneExternalService extends LocalVolleyRequest {
     }
 
     public void sendCommand(String ip, float pitch, float roll, float throttle, float yaw, LocalVolleyRequestListener listener) {
+        Log.e("command:", String.format("pitch=%.2f,roll=%.2f,throttle=%.2f,yaw=%.2f", pitch, roll, throttle, yaw));
         String formattedUrl = String.format(controlString, ip, pitch, roll, throttle, yaw);
         LocalVolleyRequestBody body = new LocalVolleyRequestBody.LocalVolleyRequestBodyBuilder()
                 .setUrl(formattedUrl)
