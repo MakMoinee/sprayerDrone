@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.github.MakMoinee.library.common.CustomErrors;
 import com.github.MakMoinee.library.dialogs.MyDialog;
 import com.github.MakMoinee.library.interfaces.LocalVolleyRequestListener;
 import com.google.gson.Gson;
@@ -125,12 +126,13 @@ public class DroneActivity extends AppCompatActivity {
                 externalService.arm(selectedDrones.getDeviceIP(), new LocalVolleyRequestListener() {
                     @Override
                     public void onSuccessString(String response) {
-
+                        Log.e("arm_click","true");
+                        Log.e("raw_disarm_resp",response);
                     }
 
                     @Override
                     public void onError(Error error) {
-
+                        CustomErrors.error(error);
                     }
                 });
             }
@@ -142,12 +144,13 @@ public class DroneActivity extends AppCompatActivity {
                 externalService.disArm(selectedDrones.getDeviceIP(), new LocalVolleyRequestListener() {
                     @Override
                     public void onSuccessString(String response) {
-
+                        Log.e("disarm_click","true");
+                        Log.e("raw_disarm_resp",response);
                     }
 
                     @Override
                     public void onError(Error error) {
-
+                        CustomErrors.error(error);
                     }
                 });
             }
@@ -191,7 +194,7 @@ public class DroneActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Error error) {
-
+                        CustomErrors.error(error);
                     }
                 });
             }
@@ -253,7 +256,7 @@ public class DroneActivity extends AppCompatActivity {
                 outputStream.write(command.getBytes());
 //                Toast.makeText(this, "Command sent: " + command, Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
-                e.printStackTrace();
+                CustomErrors.error(e);
                 Toast.makeText(this, "Failed to send command", Toast.LENGTH_SHORT).show();
             }
         } else {
